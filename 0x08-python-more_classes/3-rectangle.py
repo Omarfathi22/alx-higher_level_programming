@@ -67,3 +67,4 @@ class Rectangle:
                 rect.append("\n")
             i += 1
         return ("".join(rect))
+
