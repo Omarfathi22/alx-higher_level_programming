@@ -1,33 +1,29 @@
 #!/usr/bin/node
 
-
 class Rectangle {
-  constructor(w, h) {
-    if (typeof w === 'number' && w > 0 && typeof h === 'number' && h > 0) {
+  constructor (w, h) {
+    if (w > 0 && h > 0) {
       this.width = w;
       this.height = h;
+    } else {
+      return {};
     }
   }
 
-  print() {
-    if (this.width && this.height) {
-      for (let i = 0; i < this.height; i++) {
-        console.log('X'.repeat(this.width));
-      }
+  print () {
+    let row = 'X'.repeat(this.width);
+    for (let i = 0; i < this.height; i++) {
+      console.log(row);
     }
   }
 
-  rotate() {
-    if (this.width && this.height) {
-      [this.width, this.height] = [this.height, this.width];
-    }
+  rotate () {
+    [this.width, this.height] = [this.height, this.width];
   }
 
-  double() {
-    if (this.width && this.height) {
-      this.width *= 2;
-      this.height *= 2;
-    }
+  double () {
+    this.width *= 2;
+    this.height *= 2;
   }
 }
 
