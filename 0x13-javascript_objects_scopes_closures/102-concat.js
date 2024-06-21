@@ -2,30 +2,21 @@
 
 const fs = require('fs');
 
-const [, , sourceFile1, sourceFile2, destinationFile] = process.argv;
+const fileA = process.argv[2];
+const fileB = process.argv[3];
+const fileC = process.argv[4];
 
-fs.readFile(sourceFile1, 'utf8', (err, data1) => {
-  if (err) {
-    console.error(err);
-    return;
-  }
+fs.readFile(fileA, 'utf8', (err, dataA) => {
+  if (err) throw err;
 
-  fs.readFile(sourceFile2, 'utf8', (err, data2) => {
-    if (err) {
-      console.error(err);
-      return;
-    }
+  fs.readFile(fileB, 'utf8', (err, dataB) => {
+    if (err) throw err;
 
-    const concatenatedContent = data1.trim() + '\n' + data2.trim();
+    const concatenatedData = dataA.trim() + '\n' + dataB.trim();
 
-   
-    fs.writeFile(destinationFile, concatenatedContent, 'utf8', err => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      console.log(`Files ${sourceFile1} and ${sourceFile2} have been concatenated to ${destinationFile}`);
+    fs.writeFile(fileC, concatenatedData, 'utf8', (err) => {
+      if (err) throw err;
+      console.log('Files concatenated successfully!');
     });
   });
 });
