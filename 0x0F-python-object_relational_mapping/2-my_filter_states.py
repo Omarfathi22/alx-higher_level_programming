@@ -9,8 +9,11 @@ if __name__ == "__main__":
                          passwd=sys.argv[2], db=sys.argv[3], port=3306)
     cur = db.cursor()
 
+    # Create the query
+    state_name = sys.argv[4]
+    query = "SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY id ASC".format(state_name)
+    
     # Execute the query
-    query = "SELECT * FROM states WHERE name LIKE BINARY '{}' ORDER BY id ASC".format(sys.argv[4])
     cur.execute(query)
     
     # Fetch and print the results
@@ -21,4 +24,3 @@ if __name__ == "__main__":
     # Close cursor and database connection
     cur.close()
     db.close()
-    
