@@ -1,15 +1,18 @@
 #!/usr/bin/python3
-"""Module defining State class"""
+"""
+Defines the State class and its relationship with the City class.
+"""
 
-import sqlalchemy
-from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy import Column, Integer, String
+from sqlalchemy.orm import relationship
+from relationship_city import Base, City
 
-Base = declarative_base()
 
 class State(Base):
-    """State class representing states table in the database"""
-
+    """
+    State class linked to the MySQL table 'states'.
+    """
     __tablename__ = 'states'
-    id = sqlalchemy.Column(sqlalchemy.Integer, primary_key=True, nullable=False)
-    name = sqlalchemy.Column(sqlalchemy.String(128), nullable=False)
-    
+    id = Column(Integer, primary_key=True, nullable=False)
+    name = Column(String(128), nullable=False)
+    cities = relationship("City", back_populates="state")

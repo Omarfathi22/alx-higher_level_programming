@@ -19,7 +19,9 @@ if __name__ == "__main__":
     username = sys.argv[1]
     password = sys.argv[2]
     db_name = sys.argv[3]
-    engine = create_engine(f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}')
+    engine = create_engine(
+        f'mysql+mysqldb://{username}:{password}@localhost:3306/{db_name}'
+    )
 
     # Create tables if they do not exist
     Base.metadata.create_all(engine)
@@ -29,7 +31,8 @@ if __name__ == "__main__":
     session = Session()
 
     # Create State 'California' with City 'San Francisco'
-    california = State(name='California', cities=[City(name='San Francisco')])
+    california = State(name='California')
+    california.cities.append(City(name='San Francisco'))
     session.add(california)
     session.commit()
 
