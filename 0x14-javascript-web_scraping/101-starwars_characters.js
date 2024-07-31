@@ -7,7 +7,7 @@ const movieId = process.argv[2];
 const apiUrl = `https://swapi-api.alx-tools.com/api/films/${movieId}/`;
 
 // Fetch movie details
-request(apiUrl, (error, response, body) => {
+request(apiUrl, async (error, response, body) => {
   if (error) {
     console.error(error);
     return;
@@ -24,20 +24,21 @@ request(apiUrl, (error, response, body) => {
   const characterUrls = movie.characters;
 
   // Fetch and print each character in the order provided
-  characterUrls.forEach((url, index) => {
-    request(url, (err, res, body) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-
-      const character = JSON.parse(body);
-      console.log(character.name);
-
-      // Only print "Movie not found" if the list is empty
-      if (index === characterUrls.length - 1 && characterUrls.length === 0) {
-        console.error('Movie not found');
-      }
-    });
-  });
+  for (const url of characterUrls) {
+    try {
+      const characterName = await new Promise((resolve, reject) => {
+        request(url, (err, res, body) => {
+          if (err) {
+            reject(err);
+            return;
+          }
+          const character = JSON.parse(body);
+          resolve(character.name);
+        });
+      });
+      console.log(characterName);
+    } catch (err) {
+      console.error(err);
+    }
+  }
 });
