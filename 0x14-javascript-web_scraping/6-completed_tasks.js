@@ -25,4 +25,3 @@ request(apiUrl, (error, response, body) => {
 
   console.log(userTasks);
 });
-

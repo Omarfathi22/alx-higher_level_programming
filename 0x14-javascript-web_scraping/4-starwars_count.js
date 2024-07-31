@@ -10,7 +10,7 @@ request(apiUrl, (error, response, body) => {
     console.error(error);
     return;
   }
-  
+
   const films = JSON.parse(body).results;
   let count = 0;
 
@@ -22,4 +22,3 @@ request(apiUrl, (error, response, body) => {
 
   console.log(count);
 });
-
